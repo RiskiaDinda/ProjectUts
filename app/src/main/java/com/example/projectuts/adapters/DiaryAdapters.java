@@ -56,8 +56,8 @@ public class DiaryAdapters extends RecyclerView.Adapter<DiaryAdapters.ViewHolder
         }
 
         public void bind(final int index, final Diary item) {
-            titleView.setText(item.getTitle());
             dateView.setText(item.getDate());
+            titleView.setText(item.getTitle());
             momentView.setText(item.getMoment());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
