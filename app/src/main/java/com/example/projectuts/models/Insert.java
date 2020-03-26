@@ -25,4 +25,9 @@ public class Insert {
     public void editDiary(int index, Diary diary){
         this.diary.set(index, diary);
     }
+
+    public void removeDiary(int index){
+        Diary d = diary.get(index);
+        this.diary.remove(d);
+    }
 }

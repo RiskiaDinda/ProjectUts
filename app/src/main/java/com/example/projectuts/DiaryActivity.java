@@ -1,11 +1,12 @@
 package com.example.projectuts;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -25,9 +26,9 @@ public class DiaryActivity extends AppCompatActivity implements DiaryAdapters.On
     public static final int INSERT_REQUEST = 1;
     public static final int UPDATE_REQUEST = 2;
 
-    private RecyclerView diaryView;
-    private DiaryAdapters adapter;
     private Insert insert;
+    private RecyclerView diaryView;
+    private DiaryAdapters adapter;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class DiaryActivity extends AppCompatActivity implements DiaryAdapters.On
 
         diaryView = findViewById(R.id.rv_diary);
 
-        insert = new Insert();
+        insert = Application.getInsert();
 
         adapter = new DiaryAdapters(insert.getDiary(), this);
         diaryView.setAdapter(adapter);
@@ -53,6 +54,22 @@ public class DiaryActivity extends AppCompatActivity implements DiaryAdapters.On
                 startActivityForResult(intent, INSERT_REQUEST);
             }
         });
+
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int index = viewHolder.getAdapterPosition();
+                insert.removeDiary(index);
+                adapter.notifyDataSetChanged();
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(diaryView);
     }
 
     @Override
