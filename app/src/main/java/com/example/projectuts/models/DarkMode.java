@@ -5,11 +5,11 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 public class DarkMode {
-    private static final String DARK_MODE = "darkmode";
+    public static final String DARK_MODE = "darkmode";
     SharedPreferences preferences;
 
     public DarkMode(Context context) {
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        preferences = context.getSharedPreferences("filename",Context.MODE_PRIVATE);
     }
 
     public boolean isDarkMode() {

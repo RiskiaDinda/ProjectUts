@@ -12,7 +12,6 @@
         android:layout_height="59dp"
         android:fontFamily="@font/calligraffitti"
         android:text="Write your precious moment so you can always remember...."
-        android:textColor="#0B0A0A"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

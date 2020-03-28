@@ -1,9 +1,12 @@
 package com.example.projectuts;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.content.res.Resources.Theme;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -26,10 +29,8 @@ public class SettingActivity extends AppCompatActivity {
         labeldarkMode = findViewById(R.id.labelMode);
         switchdarkMode = findViewById(R.id.darkmode);
         if (pref.isDarkMode()==true){
-            setTheme(R.style.DarkTheme);
             switchdarkMode.setChecked(true);
         } else {
-            setTheme(R.style.AppTheme);
             switchdarkMode.setChecked(false);
         }
 
@@ -40,15 +41,13 @@ public class SettingActivity extends AppCompatActivity {
                 if (isChecked){
                     pref.setDarkMode(true);
                     if (pref.isDarkMode()==true){
-                        setTheme(R.style.DarkTheme);
-                        labeldarkMode.setText("hai");
+                        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                         switchdarkMode.setChecked(true);
                     }
                 }else {
                     pref.setDarkMode(false);
                     if (pref.isDarkMode()==false){
-                        setTheme(R.style.AppTheme);
-                        labeldarkMode.setText("sisi");
+                        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                         switchdarkMode.setChecked(false);
                     }
                 }

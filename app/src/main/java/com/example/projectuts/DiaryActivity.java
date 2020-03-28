@@ -3,6 +3,7 @@ package com.example.projectuts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.projectuts.adapters.DiaryAdapters;
+import com.example.projectuts.models.DarkMode;
 import com.example.projectuts.models.Diary;
 import com.example.projectuts.models.Insert;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,14 +33,22 @@ public class DiaryActivity extends AppCompatActivity implements DiaryAdapters.On
 
     private Insert insert;
     private RecyclerView diaryView;
-    private DiaryAdapters adapter;;
-
+    private DiaryAdapters adapter;
+    private DarkMode dm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
 
         diaryView = findViewById(R.id.rv_diary);
+
+        dm = new DarkMode(this);
+        Boolean darkmode = dm.isDarkMode();
+        if(darkmode==true){
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else{
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
         insert = Application.getInsert();
 
